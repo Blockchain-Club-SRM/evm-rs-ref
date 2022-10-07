@@ -1,23 +1,34 @@
+mod evm;
+// use evm::opcode::Opcode;
+use evm::vm::Vm;
 use std::error::Error;
-use std::fs::File;
-use std::io::prelude::*;
-use std::num::ParseIntError;
+use std::env;
 
-fn decode(s: &str) -> Result<Vec<u8>, ParseIntError> {
-    (0..(s.len() - 1))
-        .step_by(2)
-        .map(|i| u8::from_str_radix(&s[i..i + 2], 16))
-        .collect()
+fn debug(vm: &mut Vm) {
+    loop {
+        match vm.next() {
+            None => break,
+            Some(opcode) => opcode.describe(),
+        }
+    }
+}
+fn interpret(vm: &mut Vm) {
+    while !vm.at_end() {
+        vm.interpret();
+    }
+    vm.print_stack();
 }
 fn run() -> Result<(), Box<dyn Error>> {
-    let filename = "solidity/contract.bin";
-    let mut f = File::open(filename)?;
-    let mut buffer = String::new();
-    f.read_to_string(&mut buffer)?;
-    println!("{}\n", buffer);
-    let bytecode = decode(&buffer)?;
-    for b in bytecode {
-        print!("0x{:x}", b);
+    let args:Vec<String> = env::args().collect();
+    let function = args[1].clone();
+    let filename = args[2].clone();
+    print!("Reading bytecode from {} ... ", filename);
+    let mut vm = Vm::new_from_file(&filename)?;
+    println!("Correctly loaded VM");
+    match &*function {
+        "debug" => debug(&mut vm),
+        "interpret" => interpret(&mut vm),
+        _ => panic!("Expect either 'debug' or 'run' for first parameter")
     }
     Ok(())
 }
