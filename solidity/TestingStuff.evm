@@ -1,4 +1,4 @@
-    /* "solidity/contract.sol":25:213  contract TestingStuff {... */
+    /* "solidity/contract.sol":25:223  contract TestingStuff {... */
   mstore(0x40, 0x80)
   callvalue
   dup1
@@ -20,7 +20,7 @@ tag_1:
 stop
 
 sub_0: assembly {
-        /* "solidity/contract.sol":25:213  contract TestingStuff {... */
+        /* "solidity/contract.sol":25:223  contract TestingStuff {... */
       mstore(0x40, 0x80)
       callvalue
       dup1
@@ -40,9 +40,14 @@ sub_0: assembly {
       tag_3
       jumpi
       dup1
-      0x4f2be91f
+      0x13d1aa2e
       eq
       tag_4
+      jumpi
+      dup1
+      0x4f2be91f
+      eq
+      tag_5
       jumpi
     tag_2:
       0x00
@@ -50,11 +55,11 @@ sub_0: assembly {
       revert
         /* "solidity/contract.sol":51:64  uint public x */
     tag_3:
-      tag_5
+      tag_6
       sload(0x00)
       dup2
       jump
-    tag_5:
+    tag_6:
       mload(0x40)
         /* "#utility.yul":160:185   */
       swap1
@@ -71,134 +76,189 @@ sub_0: assembly {
       sub
       swap1
       return
-        /* "solidity/contract.sol":71:211  function add() public {... */
+        /* "solidity/contract.sol":71:161  function f(uint a, uint b) public pure returns (uint) {... */
     tag_4:
-      tag_9
-      tag_10
+      tag_6
+      tag_11
+      calldatasize
+      0x04
+      tag_12
       jump	// in
-    tag_9:
-      stop
-    tag_10:
-        /* "solidity/contract.sol":103:111  uint sum */
-      0x00
-        /* "solidity/contract.sol":130:136  uint i */
-      dup1
-        /* "solidity/contract.sol":125:188  for (uint i = 0; i < 10; i++) {... */
-    tag_12:
-        /* "solidity/contract.sol":146:148  10 */
-      0x0a
-        /* "solidity/contract.sol":142:143  i */
-      dup2
-        /* "solidity/contract.sol":142:148  i < 10 */
-      lt
-        /* "solidity/contract.sol":125:188  for (uint i = 0; i < 10; i++) {... */
-      iszero
+    tag_11:
       tag_13
-      jumpi
-        /* "solidity/contract.sol":169:177  sum += i */
+      jump	// in
+        /* "solidity/contract.sol":171:221  function add() public {... */
+    tag_5:
       tag_15
-        /* "solidity/contract.sol":176:177  i */
-      dup2
-        /* "solidity/contract.sol":169:177  sum += i */
-      dup4
       tag_16
       jump	// in
     tag_15:
-      swap2
-      pop
-        /* "solidity/contract.sol":150:153  i++ */
-      dup1
-      tag_17
-      dup2
-      tag_18
-      jump	// in
-    tag_17:
-      swap2
-      pop
-      pop
-        /* "solidity/contract.sol":125:188  for (uint i = 0; i < 10; i++) {... */
-      jump(tag_12)
+      stop
+        /* "solidity/contract.sol":71:161  function f(uint a, uint b) public pure returns (uint) {... */
     tag_13:
-      pop
-        /* "solidity/contract.sol":197:198  x */
+        /* "solidity/contract.sol":119:123  uint */
       0x00
-        /* "solidity/contract.sol":197:204  x = sum */
-      sstore
-        /* "solidity/contract.sol":71:211  function add() public {... */
-      jump	// out
-        /* "#utility.yul":196:323   */
-    tag_19:
-        /* "#utility.yul":257:267   */
-      0x4e487b71
-        /* "#utility.yul":252:255   */
-      0xe0
-        /* "#utility.yul":248:268   */
-      shl
-        /* "#utility.yul":245:246   */
-      0x00
-        /* "#utility.yul":238:269   */
-      mstore
-        /* "#utility.yul":288:292   */
-      0x11
-        /* "#utility.yul":285:286   */
-      0x04
-        /* "#utility.yul":278:293   */
-      mstore
-        /* "#utility.yul":312:316   */
-      0x24
-        /* "#utility.yul":309:310   */
-      0x00
-        /* "#utility.yul":302:317   */
-      revert
-        /* "#utility.yul":328:453   */
-    tag_16:
-        /* "#utility.yul":393:402   */
-      dup1
+        /* "solidity/contract.sol":147:153  b + 42 */
+      tag_18
+        /* "solidity/contract.sol":147:148  b */
       dup3
-      add
-        /* "#utility.yul":414:424   */
-      dup1
-      dup3
-      gt
-        /* "#utility.yul":411:447   */
-      iszero
-      tag_25
-      jumpi
-        /* "#utility.yul":427:445   */
-      tag_25
+        /* "solidity/contract.sol":151:153  42 */
+      0x2a
+        /* "solidity/contract.sol":147:153  b + 42 */
       tag_19
       jump	// in
-    tag_25:
-        /* "#utility.yul":328:453   */
+    tag_18:
+        /* "solidity/contract.sol":142:154  a * (b + 42) */
+      tag_20
+      swap1
+        /* "solidity/contract.sol":142:143  a */
+      dup5
+        /* "solidity/contract.sol":142:154  a * (b + 42) */
+      tag_21
+      jump	// in
+    tag_20:
+        /* "solidity/contract.sol":135:154  return a * (b + 42) */
+      swap1
+      pop
+        /* "solidity/contract.sol":71:161  function f(uint a, uint b) public pure returns (uint) {... */
+    tag_17:
       swap3
       swap2
       pop
       pop
       jump	// out
-        /* "#utility.yul":458:593   */
-    tag_18:
-        /* "#utility.yul":497:500   */
-      0x00
-        /* "#utility.yul":518:535   */
+        /* "solidity/contract.sol":171:221  function add() public {... */
+    tag_16:
+        /* "solidity/contract.sol":207:214  f(1, 4) */
+      tag_23
+        /* "solidity/contract.sol":209:210  1 */
       0x01
-      dup3
-      add
-        /* "#utility.yul":515:558   */
+        /* "solidity/contract.sol":212:213  4 */
+      0x04
+        /* "solidity/contract.sol":207:208  f */
+      tag_13
+        /* "solidity/contract.sol":207:214  f(1, 4) */
+      jump	// in
+    tag_23:
+        /* "solidity/contract.sol":203:204  x */
+      0x00
+        /* "solidity/contract.sol":203:214  x = f(1, 4) */
+      sstore
+        /* "solidity/contract.sol":171:221  function add() public {... */
+      jump	// out
+        /* "#utility.yul":196:444   */
+    tag_12:
+        /* "#utility.yul":264:270   */
+      0x00
+        /* "#utility.yul":272:278   */
+      dup1
+        /* "#utility.yul":325:327   */
+      0x40
+        /* "#utility.yul":313:322   */
+      dup4
+        /* "#utility.yul":304:311   */
+      dup6
+        /* "#utility.yul":300:323   */
+      sub
+        /* "#utility.yul":296:328   */
+      slt
+        /* "#utility.yul":293:345   */
+      iszero
       tag_28
       jumpi
-        /* "#utility.yul":538:556   */
-      tag_28
-      tag_19
-      jump	// in
+        /* "#utility.yul":341:342   */
+      0x00
+        /* "#utility.yul":338:339   */
+      dup1
+        /* "#utility.yul":331:343   */
+      revert
+        /* "#utility.yul":293:345   */
     tag_28:
       pop
-        /* "#utility.yul":585:586   */
-      0x01
-        /* "#utility.yul":574:587   */
-      add
+      pop
+        /* "#utility.yul":364:387   */
+      dup1
+      calldataload
+      swap3
+        /* "#utility.yul":434:436   */
+      0x20
+        /* "#utility.yul":419:437   */
       swap1
-        /* "#utility.yul":458:593   */
+      swap2
+      add
+        /* "#utility.yul":406:438   */
+      calldataload
+      swap2
+      pop
+        /* "#utility.yul":196:444   */
       jump	// out
+        /* "#utility.yul":449:576   */
+    tag_24:
+        /* "#utility.yul":510:520   */
+      0x4e487b71
+        /* "#utility.yul":505:508   */
+      0xe0
+        /* "#utility.yul":501:521   */
+      shl
+        /* "#utility.yul":498:499   */
+      0x00
+        /* "#utility.yul":491:522   */
+      mstore
+        /* "#utility.yul":541:545   */
+      0x11
+        /* "#utility.yul":538:539   */
+      0x04
+        /* "#utility.yul":531:546   */
+      mstore
+        /* "#utility.yul":565:569   */
+      0x24
+        /* "#utility.yul":562:563   */
+      0x00
+        /* "#utility.yul":555:570   */
+      revert
+        /* "#utility.yul":581:706   */
+    tag_19:
+        /* "#utility.yul":646:655   */
+      dup1
+      dup3
+      add
+        /* "#utility.yul":667:677   */
+      dup1
+      dup3
+      gt
+        /* "#utility.yul":664:700   */
+      iszero
+      tag_17
+      jumpi
+        /* "#utility.yul":680:698   */
+      tag_17
+      tag_24
+      jump	// in
+        /* "#utility.yul":711:879   */
+    tag_21:
+        /* "#utility.yul":784:793   */
+      dup1
+      dup3
+      mul
+        /* "#utility.yul":815:824   */
+      dup2
+      iszero
+        /* "#utility.yul":832:847   */
+      dup3
+      dup3
+      div
+        /* "#utility.yul":826:848   */
+      dup5
+      eq
+        /* "#utility.yul":812:849   */
+      or
+        /* "#utility.yul":802:873   */
+      tag_17
+      jumpi
+        /* "#utility.yul":853:871   */
+      tag_17
+      tag_24
+      jump	// in
 
-    auxdata: 0xa2646970667358221220fca2d8e1936a5d2f55188bd33fd707c3ad0f40f77aa26e07ed5171aad87fe5f364736f6c63430008110033
+    auxdata: 0xa26469706673582212204c1254d490516545064d201614b728439199cac4c0ecd4c4433c9c9d0553a13764736f6c63430008110033
 }

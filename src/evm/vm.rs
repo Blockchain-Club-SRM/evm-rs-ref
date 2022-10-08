@@ -79,7 +79,7 @@ impl Vm {
         self.stack.iter().enumerate().rev().for_each(|(i, x)| {
             let mut bytes = vec![0; 32];
             x.to_big_endian(&mut bytes);
-            println!("|{}:\t{:?}", i, bytes);
+            println!("|{}:\t{:?}|", i, bytes);
         });
     }
     pub fn print_debug(&self) {
@@ -124,7 +124,7 @@ impl Vm {
                     let value = self.stack.pop().unwrap();
                     let mut bytes = vec![0; 32];
                     value.to_big_endian(&mut bytes);
-                    println!("PRINT:\t{:?}|", bytes);
+                    println!("PRINT:\t{:?}|", value);
                 }
                 Opcode::JUMP(_addr) => {
                     let then_addr = self.stack.pop().unwrap();

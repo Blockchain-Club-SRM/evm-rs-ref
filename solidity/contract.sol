@@ -4,11 +4,11 @@ contract TestingStuff {
 
 	uint public x;
 
+    function f(uint a, uint b) public pure returns (uint) {
+        return a * (b + 42);
+    }
+    
     function add() public {
-        uint sum = 0;
-        for (uint i = 0; i < 10; i++) {
-            sum += i;
-        }
-        x = sum;
+        x = f(1, 4);
     }
 }
