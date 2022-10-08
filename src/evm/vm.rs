@@ -57,6 +57,14 @@ impl Vm {
                 self.pc += 3;
                 Some(Opcode::PUSH2(addr, value0, value1))
             }
+            0x12 => {
+                self.pc += 1;
+                Some(Opcode::SLT(addr))
+            }
+            0x57 => {
+                self.pc += 1;
+                Some(Opcode::JUMPI(addr))
+            }
             _ => {
                 self.pc += 1;
                 None
@@ -78,14 +86,36 @@ impl Vm {
         }
         match &maybe_op {
             Some(x) => match x {
-                Opcode::PUSH1(addr, value) => {
+                Opcode::PUSH1(_addr, value) => {
                     let value = U256::from(*value);
                     self.stack.push(value);
                 }
-                Opcode::ADD(addr) => {
+                Opcode::ADD(_addr) => {
                     let a = self.stack.pop().unwrap();
                     let b = self.stack.pop().unwrap();
                     self.stack.push(a + b);
+                }
+                Opcode::SLT(_addr) => {
+                    let lhs = self.stack.pop().unwrap();
+                    let rhs = self.stack.pop().unwrap();
+                    if lhs < rhs {
+                        self.stack.push(U256::from(0x01));
+                    } else {
+                        self.stack.push(U256::from(0x00));
+                    }
+                }
+                Opcode::JUMPI(_addr) => {
+                    let then_addr = self.stack.pop().unwrap();
+                    let cond = self.stack.pop().unwrap();
+                    if !cond.is_zero() {
+                        self.pc = then_addr.as_u64() as usize;
+                    }
+                }
+                Opcode::PRINT(_addr) => {
+                    let value = self.stack.pop().unwrap();
+                    let mut bytes = vec![0; 32];
+                    value.to_big_endian(&mut bytes);
+                    println!("PRINT:\t{:?}|", bytes);
                 }
                 _ => {}
             },

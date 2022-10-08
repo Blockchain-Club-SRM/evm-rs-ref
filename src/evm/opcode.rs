@@ -2,6 +2,7 @@
 pub enum Opcode {
     STOP(usize),
     ADD(usize),
+    SUB(usize),
     MUL(usize),
     PUSH1(usize, u8),
     PUSH2(usize, u8, u8),
@@ -40,6 +41,9 @@ pub enum Opcode {
     //     u8,
     //     u8,
     // ),
+    SLT(usize),
+    JUMPI(usize),
+    PRINT(usize),
     EOF,
 }
 
@@ -48,6 +52,7 @@ impl Opcode {
         match self {
             Opcode::STOP(line) => println!("0x{:x}\tSTOP\tHalts execution", line),
             Opcode::ADD(line) => println!("0x{:x}\tADD\tAddition operation", line),
+            Opcode::SUB(line) => println!("0x{:x}\tSUB\tSubtraction operation", line),
             Opcode::MUL(line) => println!("0x{:x}\tMUL\tMultiplication operation", line),
             Opcode::PUSH1(line, x) => println!(
                 "0x{:x}\tPUSH1\tPlace 1-byte item on the stack 0x{:x}",
@@ -57,6 +62,9 @@ impl Opcode {
                 "0x{:x}\tPUSH2\tPlace 2-bytes item on the stack 0x{:x} 0x{:x}",
                 line, x0, x1
             ),
+            Opcode::SLT(line) => println!("0x{:x}\tSLT\tSigned less-than comparison", line),
+            Opcode::JUMPI(line) => println!("0x{:x}\tJUMPI\tAlter the program counter", line),
+            Opcode::PRINT(line) => println!("0x{:x}\tPRINT\tPrint the stack", line),
             _ => println!("Unknown opcode"),
         }
     }
