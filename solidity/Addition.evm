@@ -1,0 +1,219 @@
+    /* "solidity/contract.sol":25:130  contract Addition {... */
+  mstore(0x40, 0x80)
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "solidity/contract.sol":25:130  contract Addition {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x0c55699c
+      eq
+      tag_3
+      jumpi
+      dup1
+      0xa5f3c23b
+      eq
+      tag_4
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "solidity/contract.sol":49:61  int public x */
+    tag_3:
+      tag_5
+      sload(0x00)
+      dup2
+      jump
+    tag_5:
+      mload(0x40)
+        /* "#utility.yul":158:183   */
+      swap1
+      dup2
+      mstore
+        /* "#utility.yul":146:148   */
+      0x20
+        /* "#utility.yul":131:149   */
+      add
+        /* "solidity/contract.sol":49:61  int public x */
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "solidity/contract.sol":68:128  function add(int a, int b) public {... */
+    tag_4:
+      tag_9
+      tag_10
+      calldatasize
+      0x04
+      tag_11
+      jump	// in
+    tag_10:
+      tag_12
+      jump	// in
+    tag_9:
+      stop
+    tag_12:
+        /* "solidity/contract.sol":116:121  a + b */
+      tag_14
+        /* "solidity/contract.sol":120:121  b */
+      dup2
+        /* "solidity/contract.sol":116:117  a */
+      dup4
+        /* "solidity/contract.sol":116:121  a + b */
+      tag_15
+      jump	// in
+    tag_14:
+        /* "solidity/contract.sol":112:113  x */
+      0x00
+        /* "solidity/contract.sol":112:121  x = a + b */
+      sstore
+      pop
+      pop
+        /* "solidity/contract.sol":68:128  function add(int a, int b) public {... */
+      jump	// out
+        /* "#utility.yul":194:440   */
+    tag_11:
+        /* "#utility.yul":260:266   */
+      0x00
+        /* "#utility.yul":268:274   */
+      dup1
+        /* "#utility.yul":321:323   */
+      0x40
+        /* "#utility.yul":309:318   */
+      dup4
+        /* "#utility.yul":300:307   */
+      dup6
+        /* "#utility.yul":296:319   */
+      sub
+        /* "#utility.yul":292:324   */
+      slt
+        /* "#utility.yul":289:341   */
+      iszero
+      tag_19
+      jumpi
+        /* "#utility.yul":337:338   */
+      0x00
+        /* "#utility.yul":334:335   */
+      dup1
+        /* "#utility.yul":327:339   */
+      revert
+        /* "#utility.yul":289:341   */
+    tag_19:
+      pop
+      pop
+        /* "#utility.yul":360:383   */
+      dup1
+      calldataload
+      swap3
+        /* "#utility.yul":430:432   */
+      0x20
+        /* "#utility.yul":415:433   */
+      swap1
+      swap2
+      add
+        /* "#utility.yul":402:434   */
+      calldataload
+      swap2
+      pop
+        /* "#utility.yul":194:440   */
+      jump	// out
+        /* "#utility.yul":445:758   */
+    tag_15:
+        /* "#utility.yul":509:518   */
+      dup1
+      dup3
+      add
+        /* "#utility.yul":537:548   */
+      dup3
+      dup2
+      slt
+        /* "#utility.yul":484:487   */
+      0x00
+        /* "#utility.yul":567:576   */
+      dup4
+      slt
+        /* "#utility.yul":595:605   */
+      dup1
+      iszero
+        /* "#utility.yul":591:610   */
+      dup3
+      and
+        /* "#utility.yul":620:630   */
+      dup3
+      iszero
+        /* "#utility.yul":612:631   */
+      dup3
+      and
+        /* "#utility.yul":588:632   */
+      or
+        /* "#utility.yul":585:752   */
+      iszero
+      tag_21
+      jumpi
+        /* "#utility.yul":674:684   */
+      0x4e487b71
+        /* "#utility.yul":669:672   */
+      0xe0
+        /* "#utility.yul":665:685   */
+      shl
+        /* "#utility.yul":662:663   */
+      0x00
+        /* "#utility.yul":655:686   */
+      mstore
+        /* "#utility.yul":709:713   */
+      0x11
+        /* "#utility.yul":706:707   */
+      0x04
+        /* "#utility.yul":699:714   */
+      mstore
+        /* "#utility.yul":737:741   */
+      0x24
+        /* "#utility.yul":734:735   */
+      0x00
+        /* "#utility.yul":727:742   */
+      revert
+        /* "#utility.yul":585:752   */
+    tag_21:
+      pop
+      pop
+        /* "#utility.yul":445:758   */
+      swap3
+      swap2
+      pop
+      pop
+      jump	// out
+
+    auxdata: 0xa26469706673582212206019e588ffb206a9d87be83c1e984113e942c4a462dae19f5f5b768db45e563664736f6c63430008110033
+}

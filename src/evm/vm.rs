@@ -6,9 +6,9 @@ use std::io::prelude::*;
 use std::num::ParseIntError;
 
 pub struct Vm {
-    code: Vec<u8>,
-    pc: usize,
-    stack: Vec<U256>,
+    pub code: Vec<u8>,
+    pub pc: usize,
+    pub stack: Vec<U256>,
 }
 
 fn decode(s: &str) -> Result<Vec<u8>, ParseIntError> {
