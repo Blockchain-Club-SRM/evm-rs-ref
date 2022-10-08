@@ -67,7 +67,7 @@ impl Vm {
         self.stack.iter().enumerate().rev().for_each(|(i, x)| {
             let mut bytes = vec![0; 32];
             x.to_big_endian(&mut bytes);
-            println!("|{}:\t{:?}", i, x);
+            println!("|{}:\t{:?}", i, bytes);
         });
     }
     pub fn interpret(&mut self) {
