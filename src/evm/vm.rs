@@ -65,6 +65,10 @@ impl Vm {
                 self.pc += 1;
                 Some(Opcode::JUMPI(addr))
             }
+            0x56 => {
+                self.pc += 1;
+                Some(Opcode::JUMP(addr))
+            }
             _ => {
                 self.pc += 1;
                 None
@@ -77,6 +81,11 @@ impl Vm {
             x.to_big_endian(&mut bytes);
             println!("|{}:\t{:?}", i, bytes);
         });
+    }
+    pub fn print_debug(&self) {
+        println!("PC: {}", self.pc);
+        println!("Stack:");
+        self.print_stack();
     }
     pub fn interpret(&mut self) {
         let maybe_op = self.next();
@@ -116,6 +125,10 @@ impl Vm {
                     let mut bytes = vec![0; 32];
                     value.to_big_endian(&mut bytes);
                     println!("PRINT:\t{:?}|", bytes);
+                }
+                Opcode::JUMP(_addr) => {
+                    let then_addr = self.stack.pop().unwrap();
+                    self.pc = then_addr.as_u64() as usize;
                 }
                 _ => {}
             },

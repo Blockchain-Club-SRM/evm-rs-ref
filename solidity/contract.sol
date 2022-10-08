@@ -1,18 +1,14 @@
 pragma solidity ^0.8.0;
 
-contract Addition{
+contract TestingStuff {
 
-	int public x;
-    bool public large;
+	uint public x;
+
     function add() public {
-        int a = 5;
-        int b = 6;
-    	x = a + b;
-
-        if (x < 5) {
-            x = 5;
-        } else {
-            x = 7;
+        uint sum = 0;
+        for (uint i = 0; i < 10; i++) {
+            sum += i;
         }
-   	}
+        x = sum;
+    }
 }

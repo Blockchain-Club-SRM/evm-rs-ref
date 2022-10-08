@@ -1,0 +1,204 @@
+    /* "solidity/contract.sol":25:213  contract TestingStuff {... */
+  mstore(0x40, 0x80)
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "solidity/contract.sol":25:213  contract TestingStuff {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x0c55699c
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x4f2be91f
+      eq
+      tag_4
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "solidity/contract.sol":51:64  uint public x */
+    tag_3:
+      tag_5
+      sload(0x00)
+      dup2
+      jump
+    tag_5:
+      mload(0x40)
+        /* "#utility.yul":160:185   */
+      swap1
+      dup2
+      mstore
+        /* "#utility.yul":148:150   */
+      0x20
+        /* "#utility.yul":133:151   */
+      add
+        /* "solidity/contract.sol":51:64  uint public x */
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "solidity/contract.sol":71:211  function add() public {... */
+    tag_4:
+      tag_9
+      tag_10
+      jump	// in
+    tag_9:
+      stop
+    tag_10:
+        /* "solidity/contract.sol":103:111  uint sum */
+      0x00
+        /* "solidity/contract.sol":130:136  uint i */
+      dup1
+        /* "solidity/contract.sol":125:188  for (uint i = 0; i < 10; i++) {... */
+    tag_12:
+        /* "solidity/contract.sol":146:148  10 */
+      0x0a
+        /* "solidity/contract.sol":142:143  i */
+      dup2
+        /* "solidity/contract.sol":142:148  i < 10 */
+      lt
+        /* "solidity/contract.sol":125:188  for (uint i = 0; i < 10; i++) {... */
+      iszero
+      tag_13
+      jumpi
+        /* "solidity/contract.sol":169:177  sum += i */
+      tag_15
+        /* "solidity/contract.sol":176:177  i */
+      dup2
+        /* "solidity/contract.sol":169:177  sum += i */
+      dup4
+      tag_16
+      jump	// in
+    tag_15:
+      swap2
+      pop
+        /* "solidity/contract.sol":150:153  i++ */
+      dup1
+      tag_17
+      dup2
+      tag_18
+      jump	// in
+    tag_17:
+      swap2
+      pop
+      pop
+        /* "solidity/contract.sol":125:188  for (uint i = 0; i < 10; i++) {... */
+      jump(tag_12)
+    tag_13:
+      pop
+        /* "solidity/contract.sol":197:198  x */
+      0x00
+        /* "solidity/contract.sol":197:204  x = sum */
+      sstore
+        /* "solidity/contract.sol":71:211  function add() public {... */
+      jump	// out
+        /* "#utility.yul":196:323   */
+    tag_19:
+        /* "#utility.yul":257:267   */
+      0x4e487b71
+        /* "#utility.yul":252:255   */
+      0xe0
+        /* "#utility.yul":248:268   */
+      shl
+        /* "#utility.yul":245:246   */
+      0x00
+        /* "#utility.yul":238:269   */
+      mstore
+        /* "#utility.yul":288:292   */
+      0x11
+        /* "#utility.yul":285:286   */
+      0x04
+        /* "#utility.yul":278:293   */
+      mstore
+        /* "#utility.yul":312:316   */
+      0x24
+        /* "#utility.yul":309:310   */
+      0x00
+        /* "#utility.yul":302:317   */
+      revert
+        /* "#utility.yul":328:453   */
+    tag_16:
+        /* "#utility.yul":393:402   */
+      dup1
+      dup3
+      add
+        /* "#utility.yul":414:424   */
+      dup1
+      dup3
+      gt
+        /* "#utility.yul":411:447   */
+      iszero
+      tag_25
+      jumpi
+        /* "#utility.yul":427:445   */
+      tag_25
+      tag_19
+      jump	// in
+    tag_25:
+        /* "#utility.yul":328:453   */
+      swap3
+      swap2
+      pop
+      pop
+      jump	// out
+        /* "#utility.yul":458:593   */
+    tag_18:
+        /* "#utility.yul":497:500   */
+      0x00
+        /* "#utility.yul":518:535   */
+      0x01
+      dup3
+      add
+        /* "#utility.yul":515:558   */
+      tag_28
+      jumpi
+        /* "#utility.yul":538:556   */
+      tag_28
+      tag_19
+      jump	// in
+    tag_28:
+      pop
+        /* "#utility.yul":585:586   */
+      0x01
+        /* "#utility.yul":574:587   */
+      add
+      swap1
+        /* "#utility.yul":458:593   */
+      jump	// out
+
+    auxdata: 0xa2646970667358221220fca2d8e1936a5d2f55188bd33fd707c3ad0f40f77aa26e07ed5171aad87fe5f364736f6c63430008110033
+}

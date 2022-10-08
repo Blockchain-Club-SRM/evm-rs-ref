@@ -43,6 +43,7 @@ pub enum Opcode {
     // ),
     SLT(usize),
     JUMPI(usize),
+    JUMP(usize),
     PRINT(usize),
     EOF,
 }
@@ -64,6 +65,7 @@ impl Opcode {
             ),
             Opcode::SLT(line) => println!("0x{:x}\tSLT\tSigned less-than comparison", line),
             Opcode::JUMPI(line) => println!("0x{:x}\tJUMPI\tAlter the program counter", line),
+            Opcode::JUMP(line) => println!("0x{:x}\tJUMP\tAlter the program counter", line),
             Opcode::PRINT(line) => println!("0x{:x}\tPRINT\tPrint the stack", line),
             _ => println!("Unknown opcode"),
         }
