@@ -1,14 +1,14 @@
 pragma solidity ^0.8.0;
 
-contract TestingStuff {
-
-	uint public x;
-
-    function f(uint a, uint b) public pure returns (uint) {
-        return a * (b + 42);
+contract Example {
+    struct Position {
+        address owner;
+        uint id;
     }
     
-    function add() public {
-        x = f(1, 4);
+    uint x; 
+    function takeOver() public {
+        Position memory p = Position(msg.sender, 0);
+        x = p.id;
     }
 }

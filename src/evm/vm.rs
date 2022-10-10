@@ -1,3 +1,4 @@
+use super::memory::Memory;
 use super::opcode::Opcode;
 use bigint::U256;
 use std::error::Error;
@@ -9,6 +10,7 @@ pub struct Vm {
     pub code: Vec<u8>,
     pub pc: usize,
     pub stack: Vec<U256>,
+    pub mem: Memory,
 }
 
 fn decode(s: &str) -> Result<Vec<u8>, ParseIntError> {
@@ -28,7 +30,17 @@ impl Vm {
             code: bytecode,
             pc: 0,
             stack: Vec::new(),
+            mem: Memory::new(),
         })
+    }
+    pub fn get_new_size(&self, code: &Opcode) -> Option<usize> {
+        match code {
+            Opcode::MLOAD(_) | Opcode::MSTORE(_) => {
+                Some(self.stack.last().unwrap().as_u64() as usize + 32)
+            }
+            Opcode::MSTORE8(_) => Some(self.stack.last().unwrap().as_u64() as usize + 1),
+            _ => None,
+        }
     }
 
     pub fn next(&mut self) -> Option<Opcode> {
@@ -46,16 +58,24 @@ impl Vm {
                 self.pc += 1;
                 Some(Opcode::MUL(addr))
             }
+            0x03 => {
+                self.pc += 1;
+                Some(Opcode::SUB(addr))
+            }
             0x60 => {
-                let value = self.code[self.pc + 1];
+                let value = self.extract_u256(1);
                 self.pc += 2;
                 Some(Opcode::PUSH1(addr, value))
             }
             0x61 => {
-                let value0 = self.code[self.pc + 1];
-                let value1 = self.code[self.pc + 2];
+                let value = self.extract_u256(2);
                 self.pc += 3;
-                Some(Opcode::PUSH2(addr, value0, value1))
+                Some(Opcode::PUSH2(addr, value))
+            }
+            0x73 => {
+                let value = self.extract_u256(32);
+                self.pc += 33;
+                Some(Opcode::PUSH32(addr, value))
             }
             0x12 => {
                 self.pc += 1;
@@ -68,6 +88,18 @@ impl Vm {
             0x56 => {
                 self.pc += 1;
                 Some(Opcode::JUMP(addr))
+            }
+            0x51 => {
+                self.pc += 1;
+                Some(Opcode::MLOAD(addr))
+            }
+            0x52 => {
+                self.pc += 1;
+                Some(Opcode::MSTORE(addr))
+            }
+            0x53 => {
+                self.pc += 1;
+                Some(Opcode::MSTORE8(addr))
             }
             _ => {
                 self.pc += 1;
@@ -82,6 +114,14 @@ impl Vm {
             println!("|{}:\t{:?}|", i, bytes);
         });
     }
+    pub fn extract_u256(&mut self, to_extract: usize) -> U256 {
+        let mut bytes = vec![0; 32];
+        for i in 0..to_extract {
+            let value = self.code[self.pc + i + 1];
+            bytes[32 - to_extract + i] = value;
+        }
+        U256::from_big_endian(&bytes)
+    }
     pub fn print_debug(&self) {
         println!("PC: {}", self.pc);
         println!("Stack:");
@@ -93,6 +133,10 @@ impl Vm {
             Some(op) => op.describe(),
             None => println!("Unknown opcode"),
         }
+        // match self.get_new_size(&maybe_op) {
+        //     Some(new_size) => self.mem.resize(new_size),
+        //     None => (),
+        // }
         match &maybe_op {
             Some(x) => match x {
                 Opcode::PUSH1(_addr, value) => {
@@ -103,6 +147,11 @@ impl Vm {
                     let a = self.stack.pop().unwrap();
                     let b = self.stack.pop().unwrap();
                     self.stack.push(a + b);
+                }
+                Opcode::SUB(_addr) => {
+                    let a = self.stack.pop().unwrap();
+                    let b = self.stack.pop().unwrap();
+                    self.stack.push(a - b);
                 }
                 Opcode::SLT(_addr) => {
                     let lhs = self.stack.pop().unwrap();
@@ -129,6 +178,21 @@ impl Vm {
                 Opcode::JUMP(_addr) => {
                     let then_addr = self.stack.pop().unwrap();
                     self.pc = then_addr.as_u64() as usize;
+                }
+                Opcode::MLOAD(_addr) => {
+                    let offset = self.stack.pop().unwrap();
+                    let loaded_value = self.mem.get_word(offset.as_u64() as usize);
+                    self.stack.push(loaded_value);
+                }
+                Opcode::MSTORE(_addr) => {
+                    let offset = self.stack.pop().unwrap();
+                    let value = self.stack.pop().unwrap();
+                    self.mem.set_word(offset.as_u64() as usize, value);
+                }
+                Opcode::MSTORE8(_addr) => {
+                    let offset = self.stack.pop().unwrap();
+                    let value = self.stack.pop().unwrap().byte(31);
+                    self.mem.set_byte(offset.as_u64() as usize, value);
                 }
                 _ => {}
             },

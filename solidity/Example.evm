@@ -1,0 +1,83 @@
+    /* "solidity/contract.sol":25:241  contract Example {... */
+  mstore(0x40, 0x80)
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "solidity/contract.sol":25:241  contract Example {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0xed14b6a5
+      eq
+      tag_3
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "solidity/contract.sol":134:239  function takeOver() public {... */
+    tag_3:
+      tag_4
+        /* "solidity/contract.sol":191:214  Position(msg.sender, 0) */
+      0x40
+      dup1
+      mload
+      dup1
+      dup3
+      add
+      swap1
+      swap2
+      mstore
+        /* "solidity/contract.sol":200:210  msg.sender */
+      caller
+        /* "solidity/contract.sol":191:214  Position(msg.sender, 0) */
+      dup2
+      mstore
+        /* "solidity/contract.sol":171:188  Position memory p */
+      0x00
+        /* "solidity/contract.sol":191:214  Position(msg.sender, 0) */
+      0x20
+      swap1
+      swap2
+      add
+      dup2
+      swap1
+      mstore
+        /* "solidity/contract.sol":224:232  x = p.id */
+      dup1
+      sstore
+        /* "solidity/contract.sol":134:239  function takeOver() public {... */
+      jump
+    tag_4:
+      stop
+
+    auxdata: 0xa2646970667358221220c8a768cde08c3e8d7d5c9cd3788d1f43d58cc806431068e49ff07aa07682137064736f6c63430008110033
+}

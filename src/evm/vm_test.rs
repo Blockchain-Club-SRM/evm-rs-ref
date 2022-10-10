@@ -1,10 +1,12 @@
 use super::vm::Vm;
+use super::memory::Memory;
 
 fn create_vm(binary: Vec<u8>) -> Vm {
     Vm {
         code: binary,
         pc: 0,
         stack: Vec::new(),
+        mem: Memory::new(),
     }
 }
 
